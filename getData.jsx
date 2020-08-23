@@ -3,15 +3,15 @@ function App() {
   const { Container } = ReactBootstrap;
   const [data, setData] = useState({ hits: [] });
   const [url, setUrl] = useState("http://localhost:8080/data.json");
-  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
+  console.log("Rendering App");
+
   useEffect(() => {
+    console.log("Fetching data...");
     const fetchData = async () => {
-      setIsLoading(true);
       const result = await axios(url);
       setData(result.data);
-      setIsLoading(false);
     };
 
     fetchData();
@@ -31,18 +31,13 @@ function App() {
         Search
       </button>
 
-      {isLoading ? (
-        <div>Loading ...</div>
-      ) : (
-        <ul>
-          {" "}
-          {data.hits.map(item => (
-            <li key={item.objectID}>
-              <a href={item.url}>{item.title}</a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {data.hits.map(item => (
+          <li key={item.objectID}>
+            <a href={item.url}>{item.title}</a>
+          </li>
+        ))}
+      </ul>
     </Container>
   );
 }
