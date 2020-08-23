@@ -2,14 +2,15 @@ function App() {
   const { Container } = ReactBootstrap;
   const { useState, useEffect } = React;
   const [data, setData] = useState({ hits: [] });
-  const [query, setQuery] = useState("redux");
+  const [query, setQuery] = useState("MIT");
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState(
-    "https://hn.algolia.com/api/v1/search?query=redux"
+    "https://hn.algolia.com/api/v1/search?query=MIT"
   );
   const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
+  console.log("Rendering App");
+  useEffect(() => {
+    console.log("Fetching data...");
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -23,11 +24,10 @@ function App() {
 
     fetchData();
   }, [url]);
-
   return (
     <Container>
       <form
-        onSubmit={(event) => {
+        onSubmit={event => {
           setUrl(`http://hn.algolia.com/api/v1/search?query=${query}`);
 
           event.preventDefault();
@@ -36,7 +36,7 @@ function App() {
         <input
           type="text"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={event => setQuery(event.target.value)}
         />
         <button type="submit">Search</button>
       </form>
@@ -46,7 +46,7 @@ function App() {
         <div>Loading ...</div>
       ) : (
         <ul>
-          {data.hits.map((item) => (
+          {data.hits.map(item => (
             <li key={item.objectID}>
               <a href={item.url}>{item.title}</a>
             </li>
