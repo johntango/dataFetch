@@ -58,8 +58,12 @@ const dataFetchReducer = (state, action) => {
 
 function App() {
   const { Fragment, useState, useEffect, useReducer } = React;
+<<<<<<< HEAD
   const [query, setQuery] = useState("redux");
 
+=======
+  const [query, setQuery] = useState("MIT");
+>>>>>>> f7258b3995c310ff3afd9041a50a614bc86db8f0
   const [{ data, isLoading, isError }, doFetch] = useDataApi(
     "https://hn.algolia.com/api/v1/search?query=redux",
     {

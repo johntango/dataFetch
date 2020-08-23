@@ -4,9 +4,7 @@ function App() {
   const [data, setData] = useState({ hits: [] });
   const [url, setUrl] = useState("http://localhost:8080/data.json");
   const [query, setQuery] = useState("");
-
   console.log("Rendering App");
-
   useEffect(() => {
     console.log("Fetching data...");
     const fetchData = async () => {
@@ -16,7 +14,6 @@ function App() {
 
     fetchData();
   }, []);
-
   return (
     <Container>
       <input
