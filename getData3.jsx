@@ -5,7 +5,7 @@ const useDataApi = (initialUrl, initialData) => {
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: initialData,
+    data: initialData
   });
 
   useEffect(() => {
@@ -36,20 +36,20 @@ const dataFetchReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
-        isError: false,
+        isError: false
       };
     case "FETCH_SUCCESS":
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload,
+        data: action.payload
       };
     case "FETCH_FAILURE":
       return {
         ...state,
         isLoading: false,
-        isError: true,
+        isError: true
       };
     default:
       throw new Error();
@@ -58,23 +58,19 @@ const dataFetchReducer = (state, action) => {
 
 function App() {
   const { Fragment, useState, useEffect, useReducer } = React;
-<<<<<<< HEAD
   const [query, setQuery] = useState("redux");
 
-=======
-  const [query, setQuery] = useState("MIT");
->>>>>>> f7258b3995c310ff3afd9041a50a614bc86db8f0
   const [{ data, isLoading, isError }, doFetch] = useDataApi(
     "https://hn.algolia.com/api/v1/search?query=redux",
     {
-      hits: [],
+      hits: []
     }
   );
 
   return (
     <Fragment>
       <form
-        onSubmit={(event) => {
+        onSubmit={event => {
           doFetch(`http://hn.algolia.com/api/v1/search?query=${query}`);
 
           event.preventDefault();
@@ -83,7 +79,7 @@ function App() {
         <input
           type="text"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={event => setQuery(event.target.value)}
         />
         <button type="submit">Search</button>
       </form>
@@ -94,7 +90,7 @@ function App() {
         <div>Loading ...</div>
       ) : (
         <ul>
-          {data.hits.map((item) => (
+          {data.hits.map(item => (
             <li key={item.objectID}>
               <a href={item.url}>{item.title}</a>
             </li>
