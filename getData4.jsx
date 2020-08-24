@@ -1,15 +1,10 @@
-function paginate(items, pageNumber, pageSize) {
-  const start = (pageNumber - 1) * pageSize;
-  let page = items.slice(start, start + pageSize);
-  return page;
-}
 const Pagination = ({ items, pageSize, onPageChange }) => {
   const { Button } = ReactBootstrap;
   if (items.length <= 1) return null;
+
   let num = Math.ceil(items.length / pageSize);
-  let pages = Array(num).fill(0);
-  pages = [1, 2, 3];
-  const list = pages.map((page) => {
+  let pages = range(1, num + 1);
+  const list = pages.map(page => {
     return (
       <Button key={page} onClick={onPageChange} className="page-item">
         {page}
@@ -22,6 +17,18 @@ const Pagination = ({ items, pageSize, onPageChange }) => {
     </nav>
   );
 };
+function range(start, end) {
+  var ans = [];
+  for (let i = start; i <= end; i++) {
+    ans.push(i);
+  }
+  return ans;
+}
+function paginate(items, pageNumber, pageSize) {
+  const start = (pageNumber - 1) * pageSize;
+  let page = items.slice(start, start + pageSize);
+  return page;
+}
 const useDataApi = (initialUrl, initialData) => {
   const { useState, useEffect, useReducer } = React;
   const [url, setUrl] = useState(initialUrl);
@@ -29,7 +36,7 @@ const useDataApi = (initialUrl, initialData) => {
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: initialData,
+    data: initialData
   });
 
   useEffect(() => {
@@ -60,20 +67,20 @@ const dataFetchReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
-        isError: false,
+        isError: false
       };
     case "FETCH_SUCCESS":
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload,
+        data: action.payload
       };
     case "FETCH_FAILURE":
       return {
         ...state,
         isLoading: false,
-        isError: true,
+        isError: true
       };
     default:
       throw new Error();
@@ -86,12 +93,12 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const [{ data, isLoading, isError }, doFetch] = useDataApi(
-    "https://hn.algolia.com/api/v1/search?query=redux",
+    "https://hn.algolia.com/api/v1/search?query=MIT",
     {
-      hits: [],
+      hits: []
     }
   );
-  const handlePageChange = (e) => {
+  const handlePageChange = e => {
     setCurrentPage(Number(e.target.textContent));
   };
   let page = data.hits;
@@ -102,16 +109,15 @@ function App() {
   return (
     <Fragment>
       <form
-        onSubmit={(event) => {
+        onSubmit={event => {
           doFetch("http://hn.algolia.com/api/v1/search?query=${query}");
-
           event.preventDefault();
         }}
       >
         <input
           type="text"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={event => setQuery(event.target.value)}
         />
         <button type="submit">Search</button>
       </form>
@@ -122,20 +128,18 @@ function App() {
         <div>Loading ...</div>
       ) : (
         <ul>
-          {page.map((item) => (
+          {page.map(item => (
             <li key={item.objectID}>
               <a href={item.url}>{item.title}</a>
             </li>
           ))}
         </ul>
       )}
-      {data.hits && (
-        <Pagination
-          items={data.hits}
-          pageSize={pageSize}
-          onPageChange={handlePageChange}
-        ></Pagination>
-      )}
+      <Pagination
+        items={data.hits}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+      ></Pagination>
     </Fragment>
   );
 }
