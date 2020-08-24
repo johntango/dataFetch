@@ -9,7 +9,8 @@ function App() {
   );
   const [isLoading, setIsLoading] = React.useState(false);
   console.log("Rendering App");
-  useEffect(() => {
+  
+  useEffect(() => {   // Handles the LifeCycle Events
     console.log("Fetching data...");
     const fetchData = async () => {
       setIsLoading(true);
