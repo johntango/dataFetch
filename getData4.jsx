@@ -17,13 +17,11 @@ const Pagination = ({ items, pageSize, onPageChange }) => {
     </nav>
   );
 };
-function range(start, end) {
-  var ans = [];
-  for (let i = start; i <= end; i++) {
-    ans.push(i);
-  }
-  return ans;
-}
+const range = (start, end) => {
+  return Array(end - start + 1)
+    .fill(0)
+    .map((item, i) => start + i);
+};
 function paginate(items, pageNumber, pageSize) {
   const start = (pageNumber - 1) * pageSize;
   let page = items.slice(start, start + pageSize);
