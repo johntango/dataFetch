@@ -58,10 +58,10 @@ const dataFetchReducer = (state, action) => {
 
 function App() {
   const { Fragment, useState, useEffect, useReducer } = React;
-  const [query, setQuery] = useState("redux");
+  const [query, setQuery] = useState("MIT");
 
   const [{ data, isLoading, isError }, doFetch] = useDataApi(
-    "https://hn.algolia.com/api/v1/search?query=redux",
+    "https://hn.algolia.com/api/v1/search?query=MIT",
     {
       hits: []
     }
