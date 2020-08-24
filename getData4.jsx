@@ -84,7 +84,7 @@ const dataFetchReducer = (state, action) => {
       throw new Error();
   }
 };
-
+// App that gets data from Hacker News url
 function App() {
   const { Fragment, useState, useEffect, useReducer } = React;
   const [query, setQuery] = useState("MIT");
